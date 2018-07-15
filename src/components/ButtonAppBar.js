@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuList from './MenuList.js';
+import MenuItem from '@material-ui/core/MenuItem';
+import { ClickAwayListener } from '@material-ui/core';
 
-const styles = theme => ({
+import Menu from '@material-ui/core/Menu';
+import MenuList from './MenuList';
+
+const styles = {
   root: {
     flexGrow: 1
   },
@@ -21,67 +26,97 @@ const styles = theme => ({
   appBar: {
     background: 'transparent',
     boxShadow: 'none'
-  },
-  popperClose: {
-    pointerEvents: 'none'
   }
-});
+};
 
 class ButtonAppBar extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
   render() {
     const { classes } = this.props;
-
-    const homeItems = [
-      { name: 'Home' },
-      { name: 'About Us' },
-      { name: 'Newsletter' },
-      { name: 'Cancellations' }
-    ];
-    const mediaItems = [{ name: 'Pictures' }, { name: 'Vides' }];
-    const companyItems = [
-      { name: 'Our Company' },
-      { name: 'Performances' },
-      { name: 'Request a Show' },
-      { name: 'Meet the Members' },
-      { name: 'Company Login' }
-    ];
-    const classesItems = [
-      { name: 'Class Schedules' },
-      { name: 'Vacation Schedule' },
-      { name: 'Class Descriptions' },
-      { name: 'Fitness Classes' },
-      { name: 'Other Classes' },
-      { name: 'Age Requirements' },
-      { name: 'Summer Classes' },
-      { name: 'Summer Dance Camp' },
-      { name: 'Tuition Costs' },
-      { name: 'Studio Handbook & Policy' },
-      { name: 'Sign-Up Forms' },
-      { name: 'Online Sign-Up' },
-      { name: 'Note Regarding Dance With Me, Baby, and Preschool Classes' }
-    ];
-
-    const infoItems = [
-      { name: 'Directions' },
-      { name: 'Staff' },
-      { name: 'Recital Information' },
-      { name: 'Dance Resources' },
-      { name: 'Sponsors' },
-      { name: 'Surveys' },
-      { name: 'Sign-Up Forms' }
-    ];
-    const contactItems = [{ name: 'Contact' }];
+    const { anchorEl } = this.state;
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+              aria-owns={anchorEl ? 'simple-menu' : null}
+              aria-haspopup="true"
+              onClick={this.handleClick}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={this.handleClose}>Item 1</MenuItem>
+              <MenuItem onClick={this.handleClose}>Item 2</MenuItem>
+              <MenuItem onClick={this.handleClose}>Item 3</MenuItem>
+            </Menu>
+
             <div className={classes.flex}>
-              <MenuList name="Home" items={homeItems} />
-              <MenuList name="media" items={mediaItems} />
-              <MenuList name="Company" items={companyItems} />
-              <MenuList name="Classes" items={classesItems} />
-              <MenuList name="Information" items={infoItems} />
-              <MenuList name="Contact" items={contactItems} />
+              <Button
+                color="inherit"
+                aria-label="Menu"
+                aria-owns={anchorEl ? 'simple-menu' : null}
+                aria-haspopup="true"
+                onClick={this.handleClick}
+              >
+                Home
+              </Button>
+              <ClickAwayListener onClickAway={this.handleClose}>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleClose}>Item 1</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Item 2</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Item 3</MenuItem>
+                </Menu>
+              </ClickAwayListener>
+              <Button
+                color="inherit"
+                aria-label="Menu"
+                aria-owns={anchorEl ? 'simple-menu' : null}
+                aria-haspopup="true"
+                onClick={this.handleClick}
+              >
+                Media
+              </Button>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={this.handleClose}
+              >
+                <MenuItem onClick={this.handleClose}>Item 1</MenuItem>
+                <MenuItem onClick={this.handleClose}>Item 2</MenuItem>
+                <MenuItem onClick={this.handleClose}>Item 3</MenuItem>
+              </Menu>
+
+              <Button color="inherit">Company</Button>
+              <MenuList />
+              <Button color="inherit">Classes</Button>
+              <Button color="inherit">Information</Button>
+              <Button color="inherit">Contact</Button>
             </div>
           </Toolbar>
         </AppBar>
