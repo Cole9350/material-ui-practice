@@ -7,7 +7,6 @@ import logo from './logo.svg';
 import './App.css';
 import { Mui } from './theme/mui';
 import ButtonAppBar from './components/ButtonAppBar.js';
-import MenuList from './components/MenuList.js';
 
 class App extends Component {
   render() {

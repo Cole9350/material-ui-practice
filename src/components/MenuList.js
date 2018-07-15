@@ -18,10 +18,6 @@ const styles = theme => ({
   }
 });
 
-function TodoList({ items }) {
-  return items.map(item => <h1>{item.name}</h1>);
-}
-
 class MenuListComposition extends React.Component {
   state = {
     open: false

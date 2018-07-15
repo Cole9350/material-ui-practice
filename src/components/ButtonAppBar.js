@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Grow from '@material-ui/core/Grow';
 import MenuList from './MenuList.js';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const styles = theme => ({
   root: {
@@ -33,24 +28,8 @@ const styles = theme => ({
 });
 
 class ButtonAppBar extends Component {
-  state = {
-    open: false
-  };
-
-  handleToggle = () => {
-    this.setState(state => ({ open: !state.open }));
-  };
-
-  handleClose = event => {
-    if (this.anchorEl.contains(event.target)) {
-      return;
-    }
-    this.setState({ open: false });
-  };
-
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
 
     const homeItems = [
       { name: 'Home' },
